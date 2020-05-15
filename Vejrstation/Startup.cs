@@ -31,6 +31,7 @@ namespace Vejrstation
             services.AddControllers();
             services.AddDbContext<WeatherServerDbContext>(options =>
                 options.UseSqlServer(System.Environment.GetEnvironmentVariable("WeatherServerDb")));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
