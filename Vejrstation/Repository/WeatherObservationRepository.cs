@@ -10,16 +10,13 @@ namespace Vejrstation.Repository
 {
     public class WeatherObservationRepository : Repository<WeatherObservation>, IWeatherObservationRepository
     {
-        private WeatherServerDbContext db;
-
-        public WeatherObservationRepository(WeatherServerDbContext db): base(db)
+        public WeatherObservationRepository(WeatherServerDbContext context): base(context)
         {
-            this.db = db;
         }
 
         public IEnumerable<WeatherObservation> GetThreeLast()
         {
-            return Context.Set<WeatherObservation>()
+            return context.WeatherObservations
                 .OrderByDescending(x => x.Date)
                 .Take(3)
                 .ToList();
@@ -27,14 +24,14 @@ namespace Vejrstation.Repository
 
         public IEnumerable<WeatherObservation> GetOnDate(DateTime date)
         {
-            return Context.Set<WeatherObservation>()
+            return context.WeatherObservations
                 .Where(x => x.Date == date)
                 .ToList();
         }
 
         public IEnumerable<WeatherObservation> GetBetween(DateTime startDateTime, DateTime enDateTime)
         {
-            return Context.Set<WeatherObservation>()
+            return context.WeatherObservations
                 .Where(x => startDateTime <= x.Date && x.Date >= enDateTime)
                 .ToList();
         }

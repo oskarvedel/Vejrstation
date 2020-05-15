@@ -9,5 +9,6 @@ namespace Vejrstation.Interfaces
 {
     public interface IAccountRepository : IRepository<Account>
     {
+        public Task<Account> GetByUserName(string userName);
     }
 }
