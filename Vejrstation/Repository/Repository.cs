@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Vejrstation.Data;
 using Vejrstation.Interfaces;
 
 namespace Vejrstation.Repository
@@ -23,6 +24,7 @@ namespace Vejrstation.Repository
         public virtual void Create(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
+            Context.SaveChanges();
         }
     }
 }

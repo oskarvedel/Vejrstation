@@ -2,6 +2,7 @@ using Vejrstation.Interfaces;
 
 namespace Vejrstation.Controllers
 {
+    [ApiController]
     public class WeatherObservationController
     {
         private readonly IWeatherObservationRepository _repository;
