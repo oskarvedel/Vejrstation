@@ -55,6 +55,11 @@ class AccountRepository{
     + VerifyUser()
 }
 
+class Account{
+    + Id
+    + UserName
+}
+
 
 
 @enduml
