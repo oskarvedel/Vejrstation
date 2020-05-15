@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vejrstation.Data;
 
 namespace Vejrstation.Migrations
 {
     [DbContext(typeof(WeatherServerDbContext))]
-    partial class WeatherServerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200515125745_MoreSeedData")]
+    partial class MoreSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,38 +37,6 @@ namespace Vejrstation.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Accounts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            PasswordHash = "asdfasdf12341234",
-                            UserName = "Flydende vejrstation 999"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            PasswordHash = "$2b$10$xeAXtAm.AhD5nKh4EVnTmuOTej01dSpqt58ELiYk5pphIBEvQve.u",
-                            UserName = "John_1954"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            PasswordHash = "$2b$10$rqFX4RElsidIPg3Ib0rr4ejKpmzni84yAW9PehXNZA4xPuUZxjqYe",
-                            UserName = "Jesper Theilgaard"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            PasswordHash = "$2b$10$Toun7XQsR.mdemKPuoME2u640UAaanuyxfaAFMrRWJT4M25C/JN6e",
-                            UserName = "Peter Qvortrup Geisling"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            PasswordHash = "$2b$10$0nMAqaxLiuPrBkpZg0m/fuu/Wm7qLSklcmv08AfjVMWf2ihb0EGby",
-                            UserName = "Dr. Pjuskibusk"
-                        });
                 });
 
             modelBuilder.Entity("Vejrstation.Entities.WeatherObservation", b =>

@@ -59,6 +59,7 @@ namespace Vejrstation
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -66,10 +67,6 @@ namespace Vejrstation
                 endpoints.MapControllers();
                 endpoints.MapHub<LiveUpdateHub>("/LiveUpdateHub");
             });
-
-
-            //WeatherServerDbContext context = app.ApplicationServices.GetService<WeatherServerDbContext>();
-            //DbHelper.SeedData(context);
         }
         
     }
