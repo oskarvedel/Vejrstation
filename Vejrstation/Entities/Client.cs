@@ -1,4 +1,4 @@
-namespace Vejrstation
+namespace Vejrstation.Entities
 {
     public class Client
     {

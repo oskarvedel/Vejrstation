@@ -4,7 +4,6 @@ hide circle
 skinparam shadowing false
 
 
-
 class WeatherObservationController{
     - Repository : WeatherObservationRepository
     + Get() : List<WeatherObservation>
@@ -53,6 +52,11 @@ class AccountsController{
 class AccountRepository{
     + RegisterUser()
     + VerifyUser()
+}
+
+class Account{
+    + Id
+    + UserName
 }
 
 
