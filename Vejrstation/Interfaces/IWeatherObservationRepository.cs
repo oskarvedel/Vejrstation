@@ -6,7 +6,7 @@ using Vejrstation.Entities;
 
 namespace Vejrstation.Interfaces
 {
-    interface IWeatherObservationRepository: IRepository<WeatherObservation>
+    public interface IWeatherObservationRepository: IRepository<WeatherObservation>
     {
         IEnumerable<WeatherObservation> GetFiveLast();
 

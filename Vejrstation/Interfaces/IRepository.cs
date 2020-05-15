@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Vejrstation.Interfaces
 {
-    interface IRepository<TEntity> where TEntity: class
+    public interface IRepository<TEntity> where TEntity: class
     {
         void Create(TEntity entity);
         TEntity Read(int id);
