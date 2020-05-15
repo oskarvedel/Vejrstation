@@ -1,4 +1,3 @@
-/*
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
@@ -21,95 +20,78 @@ namespace Vejrstation.Data
             context.Database.EnsureCreated();
             if (!context.Accounts.Any())
                 SeedAccounts(context);
-            if (!context.WeatherObservation.Any())
-                SeedExpenses(context);
+            if (!context.WeatherObservations.Any())
+                SeedWeatherObservations(context);
         }
 
-        static void SeedAccounts(ApplicationDbContext context)
+        static void SeedAccounts(WeatherServerDbContext context)
         {
             context.Accounts.AddRange(
                 // Seed manager
-                new EfAccount
+                new Account
                 {
-                    Email = "boss@m.dk",
-                    PwHash = HashPassword("asdfQWER", BcryptWorkfactor),
-                    IsManager = true
+                    Id = 1,
+                    UserName = "John_1954",
+                    PasswordHash = HashPassword("mitPassword1", BcryptWorkfactor)
                 },
                 // Seed some models
-                new EfAccount
+                new Account
                 {
-                    Email = "nc@m.dk",
-                    PwHash = HashPassword("Pas123", BcryptWorkfactor),
-                    IsManager = false
+                    Id = 2,
+                    UserName = "Jesper Theilgaard",
+                    PasswordHash = HashPassword("mitPassword2", BcryptWorkfactor)
                 },
-                new EfAccount
+                new Account
                 {
-                    Email = "hc@m.dk",
-                    PwHash = HashPassword("Pas123", BcryptWorkfactor),
-                    IsManager = false
+                    Id = 3,
+                    UserName = "Peter Qvortrup Geisling",
+                    PasswordHash = HashPassword("mitPassword3", BcryptWorkfactor)
                 },
-                new EfAccount
+                new Account
                 {
-                    Email = "al@m.dk",
-                    PwHash = HashPassword("Pas123", BcryptWorkfactor),
-                    IsManager = false
-                },
-                new EfAccount
-                {
-                    Email = "jk@m.dk",
-                    PwHash = HashPassword("Pas123", BcryptWorkfactor),
-                    IsManager = false
+                    Id = 4,
+                    UserName = "Dr. Pjuskibusk",
+                    PasswordHash = HashPassword("mitPassword4", BcryptWorkfactor)
                 }
-                );
+            );
             context.SaveChanges();
         }
 
-        private static void SeedJobs(ApplicationDbContext context)
+        private static void SeedWeatherObservations(WeatherServerDbContext context)
         {
-            context.Jobs.AddRange(
-                new EfJob
+            context.WeatherObservations.AddRange(
+                new WeatherObservation
                 {
-                    Customer = "Vogue",
-                    StartDate = new DateTimeOffset(2020, 05, 03, 9, 0, 0, TimeSpan.Zero),
-                    Days = 2,
-                    Location = "Tower Brigde London",
-                    Comments = "Outdoor location!"
+                    Date = new DateTime(2020, 05, 03, 9, 0, 0),
+                    Name = "Bunden af bubbers badekar",
+                    Latitude = 23.45224,
+                    Longitude = 19.353,
+                    TemperatureCelsius = 33.1,
+                    Humidity_Percentage = 10,
+                    Pressure_Millibar = 9.2
                 },
-                new EfJob
+                new WeatherObservation
                 {
-                    Customer = "Vogue",
-                    StartDate = new DateTimeOffset(2020, 06, 2, 10, 0, 0, TimeSpan.Zero),
-                    Days = 1,
-                    Location = "Hyde Park London",
-                    Comments = "Only if sunshine."
+                    Date = new DateTime(2020, 02, 03, 1, 50, 0),
+                    Name = "Himmelbjerget",
+                    Latitude = 12.46733,
+                    Longitude = 2.2352,
+                    TemperatureCelsius = 33.1,
+                    Humidity_Percentage = 10,
+                    Pressure_Millibar = 9.2
                 },
-                new EfJob
+            new WeatherObservation
                 {
-                    Customer = "Elle",
-                    StartDate = new DateTimeOffset(2020, 05, 28, 8, 0, 0, TimeSpan.Zero),
-                    Days = 1,
-                    Location = "Eiffel Tower Paris",
-                    Comments = ""
-                },
-                new EfJob
-                {
-                    Customer = "Versace",
-                    StartDate = new DateTimeOffset(2020, 05, 29, 9, 0, 0, TimeSpan.FromHours(2)),
-                    Days = 2,
-                    Location = "Milan, Italy",
-                    Comments = ""
-                },
-                new EfJob
-                {
-                    Customer = "Hugo Boss",
-                    StartDate = new DateTimeOffset(2020, 05, 30, 8, 30, 0, TimeSpan.Zero),
-                    Days = 2,
-                    Location = "Alexanderplatz, Berlin, Tyskland",
-                    Comments = ""
+                    Date = new DateTime(2020, 11, 15, 9, 0, 0),
+                    Name = "Hjemme paa gaarden",
+                    Latitude = 56.158150,
+                    Longitude = 10.212030,
+                    TemperatureCelsius = 33.1,
+                    Humidity_Percentage = 10,
+                    Pressure_Millibar = 9.2
                 }
-                );
+            );
             context.SaveChanges();
         }
     }
 }
-*/
