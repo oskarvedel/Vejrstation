@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Vejrstation.Data;
 using Vejrstation.Entities;
@@ -9,6 +12,7 @@ namespace Vejrstation.Repository
     {
         public AccountRepository(WeatherServerDbContext context) : base(context)
         {
+            
         }
     }
 }
