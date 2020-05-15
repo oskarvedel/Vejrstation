@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Vejrstation.Interfaces;
 using System.Net.Http;
+using Vejrstation.Entities;
 
 namespace Vejrstation.Controllers
 {
@@ -38,5 +39,11 @@ namespace Vejrstation.Controllers
             return Ok(toSend);
         }
 
+        [HttpPost("Create")]
+        public async Task<IActionResult> CreateEntity([FromBody] WeatherObservation wo)
+        {
+            _repository.Create(wo);
+            return Ok(wo);
+        }
     }
 }
