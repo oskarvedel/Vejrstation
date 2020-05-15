@@ -17,11 +17,11 @@ namespace Vejrstation.Repository
             this.db = db;
         }
 
-        public IEnumerable<WeatherObservation> GetFiveLast()
+        public IEnumerable<WeatherObservation> GetThreeLast()
         {
             return Context.Set<WeatherObservation>()
                 .OrderByDescending(x => x.Date)
-                .Take(5)
+                .Take(3)
                 .ToList();
         }
 
@@ -35,7 +35,7 @@ namespace Vejrstation.Repository
         public IEnumerable<WeatherObservation> GetBetween(DateTime startDateTime, DateTime enDateTime)
         {
             return Context.Set<WeatherObservation>()
-                .Where(x => startDateTime < x.Date && x.Date > enDateTime)
+                .Where(x => startDateTime <= x.Date && x.Date >= enDateTime)
                 .ToList();
         }
     }

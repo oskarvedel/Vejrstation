@@ -18,10 +18,10 @@ namespace Vejrstation.Controllers
             this._repository = repository;
         }
 
-        [HttpGet("GetLastfive")]
-        public IActionResult GetLastfive()
+        [HttpGet("GetLastThree")]
+        public IActionResult GetThreeLast()
         {
-            var toSend =  _repository.GetFiveLast();
+            var toSend =  _repository.GetThreeLast();
             return Ok(toSend);
         }
 
