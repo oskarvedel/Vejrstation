@@ -1,0 +1,60 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+skinparam shadowing false
+
+
+
+class WeatherObservationController{
+    - Repository : WeatherObservationRepository
+    + Get() : List<WeatherObservation>
+    + Get(date : DateTime) : List<WeatherObservation>
+    + Get(startDateTime : DateTime, endDateTime : DateTime) : List<WeatherObservation>
+}
+
+class WeatherObservationRepository{
+    -Context : WeatherServerDbContext
+    + GetFirstThree() : List<WeatherObservation>
+    + GetByDate(date : DateTime) : List<WeatherObservation>
+    + GetInterval(startDateTime : DateTime, endDateTime : DateTime) : List<WeatherObservation>
+}
+
+
+class WeatherObservationDto{
+    + TimeStamp : DateTime
+    + Location : Location
+    + Temperature_Celcius : double
+    + Humidity_Percentage : uint
+    + Pressure_Millibar : double
+}
+
+class Location {
+    +Name : string
+    +Latitude : double
+    +Longitude : double
+}
+
+class WeatherObservation{
+    + Id : int
+    + TimeStamp : DateTime
+    + Location : Location
+    + Temperature_Celcius : double
+    + Humidity_Percentage : uint
+    + Pressure_Millibar : double
+}
+
+class AccountsController{
+    + Register(request : RegisterRequest) : Task<ActionResult>
+    + Login(request : LoginRequest) : Task<ActionResult<Token>>
+    + CreateToken() : Token
+}
+
+
+class AccountRepository{
+    + RegisterUser()
+    + VerifyUser()
+}
+
+
+
+@enduml

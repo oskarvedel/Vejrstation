@@ -12,6 +12,7 @@ using RCCS_Auth_Test_Project.Entities;
 using RCCS_Auth_Test_Project.Helpers;
 using RCCS_Auth_Test_Project.Models.Users;
 using RCCS_Auth_Test_Project.Services;
+using Vejrstation.Helpers;
 
 namespace RCCS_Auth_Test_Project.Controllers
 {
