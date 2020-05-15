@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Vejrstation.Repository
+namespace Vejrstation.Interfaces
 {
-    public class WeatherObservationRepository
+    interface IWeatherObservationRepository: IRepository<WeatherObservation>
     {
 
     }
