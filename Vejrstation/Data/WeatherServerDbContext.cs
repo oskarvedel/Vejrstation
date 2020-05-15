@@ -8,6 +8,7 @@ namespace Vejrstation.Data
         public WeatherServerDbContext(DbContextOptions<WeatherServerDbContext> options)
             : base(options)
         {
+
         }
         public DbSet<WeatherObservation> WeatherObservations { get; set; }
         public DbSet<Account> Accounts { get; set; }
