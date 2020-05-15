@@ -1,6 +1,6 @@
 using System;
 
-namespace Vejrstation
+namespace Vejrstation.Entities
 {
     public class Location
     {
