@@ -4,6 +4,7 @@ using Vejrstation.Interfaces;
 namespace Vejrstation.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
     public class AccountController
     {
         private readonly IAccountRepository _repository;

@@ -15,6 +15,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Vejrstation.Data;
 using Vejrstation.Hubs;
+using Vejrstation.Interfaces;
+using Vejrstation.Repository;
 
 namespace Vejrstation
 {
@@ -31,8 +33,13 @@ namespace Vejrstation
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
             services.AddDbContext<WeatherServerDbContext>(options =>
                 options.UseSqlServer(System.Environment.GetEnvironmentVariable("WeatherServerDb")));
+            
+            services.AddScoped<IWeatherObservationRepository, WeatherObservationRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            
             services.AddSignalR();
         }
 
