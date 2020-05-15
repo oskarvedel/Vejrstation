@@ -4,6 +4,7 @@ using Vejrstation.Interfaces;
 namespace Vejrstation.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
     public class WeatherObservationController
     {
         private readonly IWeatherObservationRepository _repository;
