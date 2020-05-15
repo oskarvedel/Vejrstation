@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
+using Vejrstation.Entities;
 
 namespace Vejrstation.Hubs
 {
@@ -10,7 +11,7 @@ namespace Vejrstation.Hubs
     {
         public async Task SendMessage(string user, string message)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
+            await Clients.Caller.SendAsync("ReceiveMessage", user, message);
         }
 
     }
