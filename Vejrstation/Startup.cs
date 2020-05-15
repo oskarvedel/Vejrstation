@@ -35,17 +35,11 @@ namespace Vejrstation
      
             //services.AddScoped<IWeatherObservationRepository, WeatherObservationRepository>();
             //services.AddScoped<IAccountRepository, AccountRepository>();
-            
+
             services.AddDbContext<WeatherServerDbContext>(options =>
-                options.UseSqlServer(System.Environment.GetEnvironmentVariable("WeatherServerDb"),
-                    sqlServerOptionsAction: sqlOptions =>
-                    {
-                        sqlOptions.EnableRetryOnFailure(
-                            maxRetryCount: 10,
-                            maxRetryDelay: TimeSpan.FromSeconds(5),
-                            errorNumbersToAdd: null);
-                    }));
-            
+                options.UseSqlServer(System.Environment.GetEnvironmentVariable("WeatherServerDb")));
+
+
             services.AddSignalR();
             
 
