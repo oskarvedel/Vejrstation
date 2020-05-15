@@ -18,6 +18,7 @@ namespace Vejrstation.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new WeatherObservationConfigurations());
+            modelBuilder.ApplyConfiguration(new AccountConfigurations());
         }
     }
 }
