@@ -7,9 +7,9 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Vejrstation.Entities;
-using WebApi.Helpers;
+using Vejrstation.Helpers;
 
-namespace WebApi.Services
+namespace Vejrstation.Services
 {
     public interface IClientService
     {
