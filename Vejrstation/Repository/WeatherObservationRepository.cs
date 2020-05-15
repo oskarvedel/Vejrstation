@@ -35,7 +35,7 @@ namespace Vejrstation.Repository
         public IEnumerable<WeatherObservation> GetBetween(DateTime startDateTime, DateTime enDateTime)
         {
             return Context.Set<WeatherObservation>()
-                .Where(x => startDateTime < x.Date && x.Date > enDateTime)
+                .Where(x => startDateTime <= x.Date && x.Date >= enDateTime)
                 .ToList();
         }
     }
