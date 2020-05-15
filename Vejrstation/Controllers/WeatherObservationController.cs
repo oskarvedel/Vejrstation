@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Vejrstation.Interfaces;
 
 namespace Vejrstation.Controllers
