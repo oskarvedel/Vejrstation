@@ -11,7 +11,7 @@ using static BCrypt.Net.BCrypt;
 
 namespace Vejrstation.Data
 {
-    public static class DbUtilities
+    public static class DbHelper
     {
         public const int BcryptWorkfactor = 10;
 
