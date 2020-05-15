@@ -2,7 +2,7 @@ using System;
 
 namespace Vejrstation
 {
-    public class WeatherForecast
+    public class WeatherObservation
     {
         public DateTime Date { get; set; }
         
