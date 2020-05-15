@@ -16,12 +16,12 @@ namespace Vejrstation.Repository
         {
             Context = context;
         }
-        public virtual TEntity Read(int id)
+        public  TEntity Read(int id)
         {
             return Context.Set<TEntity>().Find(id);
         }
 
-        public virtual void Create(TEntity entity)
+        public void Create(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
             Context.SaveChanges();

@@ -18,28 +18,28 @@ namespace Vejrstation.Controllers
             this._repository = repository;
         }
 
-        [HttpGet("GetLastThree")]
+        [HttpGet]
         public IActionResult GetThreeLast()
         {
             var toSend =  _repository.GetThreeLast();
             return Ok(toSend);
         }
 
-        [HttpGet("GetOnDate")]
+        [HttpGet("{date}")]
         public IActionResult GetOnDate(DateTime date)
         {
             var toSend =  _repository.GetOnDate(date);
             return Ok(toSend);
         }
 
-        [HttpGet("GetBetween")]
-        public IActionResult GetBetweentwo(DateTime startDateTimeTime, DateTime endDateTime)
+        [HttpGet("{startDateTime}/{endDateTime}")]
+        public IActionResult GetBetween(DateTime startDateTime, DateTime endDateTime)
         {
-            var toSend = _repository.GetBetween(startDateTimeTime,endDateTime);
+            var toSend = _repository.GetBetween(startDateTime,endDateTime);
             return Ok(toSend);
         }
 
-        [HttpPost("Create")]
+        [HttpPost]
         public async Task<IActionResult> CreateEntity([FromBody] WeatherObservation wo)
         {
             _repository.Create(wo);
