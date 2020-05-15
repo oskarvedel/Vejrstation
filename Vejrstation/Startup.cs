@@ -8,10 +8,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Vejrstation.Data;
 using Vejrstation.Hubs;
 
 namespace Vejrstation
@@ -29,13 +31,9 @@ namespace Vejrstation
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-<<<<<<< HEAD
             services.AddDbContext<WeatherServerDbContext>(options =>
                 options.UseSqlServer(System.Environment.GetEnvironmentVariable("WeatherServerDb")));
-            
-=======
             services.AddSignalR();
->>>>>>> 1b8ed79147d89c72c2804b6aca3f99861842d2ce
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
