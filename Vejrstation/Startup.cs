@@ -32,7 +32,7 @@ namespace Vejrstation
         {
             services.AddControllers();
             services.AddDbContext<WeatherServerDbContext>(options =>
-                options.UseSqlServer(System.Environment.GetEnvironmentVariable("WeatherServerDb")));
+                options.UseSqlServer(Environment.GetEnvironmentVariable("WeatherServerDb")));
             services.AddSignalR();
         }
 
