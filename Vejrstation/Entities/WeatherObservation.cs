@@ -2,17 +2,26 @@ using System;
 
 namespace Vejrstation
 {
-    public class WeatherForecast
+    public class Location
+    {
+        string Name;
+        double Latitude;
+        double Longitude;
+
+        public Location(string name, double latitude, double longitude)
+        {
+            this.Name = name;
+            this.Latitude = latitude;
+            this.Longitude =s longitude;
+        }
+    }
+
+    public class WeatherObservation
     {
         public DateTime Date { get; set; }
-        
-        public string Location { get; set; }
-        public double latitude { get; set; }
-        public double longitude { get; set; }
-        
-        public double TemperatureC { get; set; }
-        
-        public int Humidity { get; set; }
-        public double Pressure { get; set; }
+        public Location Location { get; set; }
+        public double TemperatureCelsius { get; set; }
+        public int Humidity_Percentage { get; set; }
+        public double Pressure_Millibar { get; set; }
     }
 }
