@@ -32,26 +32,26 @@ namespace Vejrstation.Data
                 {
                     Id = 1,
                     UserName = "John_1954",
-                    PasswordHash = HashPassword("mitPassword", BcryptWorkfactor)
+                    PasswordHash = HashPassword("mitPassword1", BcryptWorkfactor)
                 },
                 // Seed some models
                 new Account
                 {
                     Id = 2,
                     UserName = "Jesper Theilgaard",
-                    PasswordHash = HashPassword("mitPassword", BcryptWorkfactor)
+                    PasswordHash = HashPassword("mitPassword2", BcryptWorkfactor)
                 },
                 new Account
                 {
                     Id = 3,
                     UserName = "Peter Qvortrup Geisling",
-                    PasswordHash = HashPassword("mitPassword", BcryptWorkfactor)
+                    PasswordHash = HashPassword("mitPassword3", BcryptWorkfactor)
                 },
                 new Account
                 {
                     Id = 4,
-                    UserName = "kod1erhemmelig",
-                    PasswordHash = HashPassword("mitPassword", BcryptWorkfactor)
+                    UserName = "Dr. Pjuskibusk",
+                    PasswordHash = HashPassword("mitPassword4", BcryptWorkfactor)
                 }
             );
             context.SaveChanges();
@@ -64,8 +64,8 @@ namespace Vejrstation.Data
                 {
                     Date = new DateTime(2020, 05, 03, 9, 0, 0),
                     Name = "Bunden af bubbers badekar",
-                    Latitude = 23,
-                    Longitude = 2,
+                    Latitude = 23.45224,
+                    Longitude = 19.353,
                     TemperatureCelsius = 33.1,
                     Humidity_Percentage = 10,
                     Pressure_Millibar = 9.2
@@ -74,8 +74,8 @@ namespace Vejrstation.Data
                 {
                     Date = new DateTime(2020, 02, 03, 1, 50, 0),
                     Name = "Himmelbjerget",
-                    Latitude = 12,
-                    Longitude = 2,
+                    Latitude = 12.46733,
+                    Longitude = 2.2352,
                     TemperatureCelsius = 33.1,
                     Humidity_Percentage = 10,
                     Pressure_Millibar = 9.2
@@ -84,8 +84,8 @@ namespace Vejrstation.Data
                 {
                     Date = new DateTime(2020, 11, 15, 9, 0, 0),
                     Name = "Hjemme paa gaarden",
-                    Latitude = 23,
-                    Longitude = 2,
+                    Latitude = 56.158150,
+                    Longitude = 10.212030,
                     TemperatureCelsius = 33.1,
                     Humidity_Percentage = 10,
                     Pressure_Millibar = 9.2
