@@ -4,6 +4,7 @@ namespace Vejrstation.Entities
 {
     public class WeatherObservation
     {
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public string Name { get; set; }
         public double Latitude { get; set; }
