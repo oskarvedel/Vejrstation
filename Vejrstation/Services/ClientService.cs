@@ -1,73 +1,135 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Vejrstation.Entities;
-using Vejrstation.Helpers;
+using RCCS_Auth_Test_Project.Entities;
+using RCCS_Auth_Test_Project.Helpers;
+using RCCS_Auth_Test_Project.Models.Users;
+using RCCS_Auth_Test_Project.Services;
 
-namespace Vejrstation.Services
+namespace RCCS_Auth_Test_Project.Controllers
 {
-    public interface IClientService
+    [Authorize]
+    [ApiController]
+    [Route("[controller]")]
+    public class UsersController : ControllerBase
     {
-        User Authenticate(string username, string password);
-        IEnumerable<User> GetAll();
-    }
-
-    public class UserService : IUserService
-    {
-        // users hardcoded for simplicity, store in a db with hashed passwords in production applications
-        private List<User> _users = new List<User>
-        { 
-            new User { Id = 1, FirstName = "Test", LastName = "User", Username = "test", Password = "test" } 
-        };
-
+        private IUserService _userService;
+        private IMapper _mapper;
         private readonly AppSettings _appSettings;
 
-        public UserService(IOptions<AppSettings> appSettings)
+        public UsersController(
+            IUserService userService,
+            IMapper mapper,
+            IOptions<AppSettings> appSettings)
         {
+            _userService = userService;
+            _mapper = mapper;
             _appSettings = appSettings.Value;
         }
 
-        public User Authenticate(string username, string password)
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody] AuthenticateModel model)
         {
-            var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
+            var user = _userService.Authenticate(model.Username, model.Password);
 
-            // return null if user not found
             if (user == null)
-                return null;
+                return BadRequest(new {message = "Username or password is incorrect"});
 
-            // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[] 
+                Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            user.Token = tokenHandler.WriteToken(token);
+            var tokenString = tokenHandler.WriteToken(token);
 
-            // remove password before returning
-            user.Password = null;
-
-            return user;
+            // return basic user info and authentication token
+            return Ok(new
+            {
+                Id = user.Id,
+                Username = user.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Token = tokenString
+            });
         }
 
-        public IEnumerable<User> GetAll()
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] RegisterModel model)
         {
-            // return users without passwords
-            return _users.Select(x => {
-                x.Password = null;
-                return x;
-            });
+            // map model to entity
+            var user = _mapper.Map<User>(model);
+
+            try
+            {
+                // create user
+                _userService.Create(user, model.Password);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new {message = ex.Message});
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var users = _userService.GetAll();
+            var model = _mapper.Map<IList<UserModel>>(users);
+            return Ok(model);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var user = _userService.GetById(id);
+            var model = _mapper.Map<UserModel>(user);
+            return Ok(model);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] UpdateModel model)
+        {
+            // map model to entity and set id
+            var user = _mapper.Map<User>(model);
+            user.Id = id;
+
+            try
+            {
+                // update user 
+                _userService.Update(user, model.Password);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new {message = ex.Message});
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _userService.Delete(id);
+            return Ok();
         }
     }
 }
