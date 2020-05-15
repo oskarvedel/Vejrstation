@@ -2,20 +2,6 @@ using System;
 
 namespace Vejrstation.Entities
 {
-    public class Location
-    {
-        string Name;
-        double Latitude;
-        double Longitude;
-
-        public Location(string name, double latitude, double longitude)
-        {
-            this.Name = name;
-            this.Latitude = latitude;
-            this.Longitude = longitude;
-        }
-    }
-
     public class WeatherObservation
     {
         public DateTime Date { get; set; }
