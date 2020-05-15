@@ -32,19 +32,23 @@ namespace Vejrstation
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+     
+            //services.AddScoped<IWeatherObservationRepository, WeatherObservationRepository>();
+            //services.AddScoped<IAccountRepository, AccountRepository>();
             
             services.AddDbContext<WeatherServerDbContext>(options =>
                 options.UseSqlServer(System.Environment.GetEnvironmentVariable("WeatherServerDb")));
             
-            services.AddScoped<IWeatherObservationRepository, WeatherObservationRepository>();
-            services.AddScoped<IAccountRepository, AccountRepository>();
-            
             services.AddSignalR();
+            
+
+            services.AddControllers();
         }
 
+        
+        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WeatherServerDbContext context)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -62,7 +66,11 @@ namespace Vejrstation
                 endpoints.MapControllers();
                 endpoints.MapHub<LiveUpdateHub>("/LiveUpdateHub");
             });
-            DbHelper.SeedData(context);
+
+
+            //WeatherServerDbContext context = app.ApplicationServices.GetService<WeatherServerDbContext>();
+            //DbHelper.SeedData(context);
         }
+        
     }
 }
