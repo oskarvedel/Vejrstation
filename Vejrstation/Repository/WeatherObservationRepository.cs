@@ -17,11 +17,11 @@ namespace Vejrstation.Repository
             this.db = db;
         }
 
-        public IEnumerable<WeatherObservation> GetFiveLast()
+        public IEnumerable<WeatherObservation> GetThreeLast()
         {
             return Context.Set<WeatherObservation>()
                 .OrderByDescending(x => x.Date)
-                .Take(5)
+                .Take(3)
                 .ToList();
         }
 
