@@ -12,7 +12,7 @@ namespace Vejrstation
         {
             this.Name = name;
             this.Latitude = latitude;
-            this.Longitude =s longitude;
+            this.Longitude = longitude;
         }
     }
 
