@@ -1,3 +1,4 @@
+/*
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
@@ -243,3 +244,4 @@ namespace Vejrstation.Data
         }
     }
 }
+*/
