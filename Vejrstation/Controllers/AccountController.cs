@@ -41,9 +41,9 @@ namespace Vejrstation.Controllers
                 PasswordHash = HashPassword(request.Password, Settings.BCryptWorkFactor)
             };
             
-            var accountCreated = await _repository.Create(account);
-            
-            return Ok(accountCreated);
+            var newAccount = await _repository.Create(account);
+            var newAccountId = newAccount.Id;
+            return Ok(new{success = true, id = newAccountId});
         }
 
         
