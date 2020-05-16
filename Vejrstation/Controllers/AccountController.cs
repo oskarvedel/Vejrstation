@@ -5,6 +5,7 @@ using Vejrstation.Interfaces;
 using System.Net.Http;
 using Vejrstation.DTO;
 using Vejrstation.Entities;
+using static BCrypt.Net.BCrypt;
 
 
 
@@ -26,10 +27,16 @@ namespace Vejrstation.Controllers
         {
             if (_repository.GetByUserName(request.UserName) != null)
             {
-                return Ok(new {success = false});
+                return Ok(new {success = false, message="UserName already exists, try logging in."});
             }
+
+            new Account()
+            {
+                UserName = request.UserName,
+                PasswordHash = HashPassword(request.Password, Settings.BCryptWorkFactor)
+            };
             
-            
+
             return Ok();
         }
         
