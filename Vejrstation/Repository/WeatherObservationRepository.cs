@@ -15,7 +15,7 @@ namespace Vejrstation.Repository
         {
         }
 
-        public async Task<IEnumerable<WeatherObservation>> GetThreeLast()
+        public async Task<IEnumerable<WeatherObservation>> GetLastThree()
         {
             return await context.WeatherObservations
                 .OrderByDescending(x => x.Date)
@@ -26,14 +26,14 @@ namespace Vejrstation.Repository
         public async Task<IEnumerable<WeatherObservation>> GetOnDate(DateTime date)
         {
             return await context.WeatherObservations
-                .Where(x => x.Date == date)
+                .Where(x => x.Date.Year == date.Year && x.Date.Month == date.Month && x.Date.Date == date.Date )
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<WeatherObservation>> GetBetween(DateTime startDateTime, DateTime enDateTime)
+        public async Task<IEnumerable<WeatherObservation>> GetBetween(DateTime startDateTime, DateTime endDateTime)
         {
             return await context.WeatherObservations
-                .Where(x => startDateTime <= x.Date && x.Date >= enDateTime)
+                .Where(x => x.Date >= startDateTime && x.Date <= endDateTime)
                 .ToListAsync();
         }
     }

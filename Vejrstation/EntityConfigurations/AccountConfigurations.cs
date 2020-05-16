@@ -13,32 +13,32 @@ namespace Vejrstation.EntityConfigurations
         {
             builder.HasData(new Account
             {
-                Id = 1,
+                Id = 1001,
                 UserName = "Flydende vejrstation 999",
                 PasswordHash = "asdfasdf12341234"
             },
                 new Account
                 {
-                    Id = 2,
+                    Id = 1002,
                     UserName = "John_1954",
                     PasswordHash = HashPassword("mitPassword1", Settings.BCryptWorkFactor)
                 },
                 // Seed some models
                 new Account
                 {
-                    Id = 3,
+                    Id = 1003,
                     UserName = "Jesper Theilgaard",
                     PasswordHash = HashPassword("mitPassword2", Settings.BCryptWorkFactor)
                 },
                 new Account
                 {
-                    Id = 4,
+                    Id = 1004,
                     UserName = "Peter Qvortrup Geisling",
                     PasswordHash = HashPassword("mitPassword3", Settings.BCryptWorkFactor)
                 },
                 new Account
                 {
-                    Id = 5,
+                    Id = 1005,
                     UserName = "Dr. Pjuskibusk",
                     PasswordHash = HashPassword("mitPassword4", Settings.BCryptWorkFactor)
                 });

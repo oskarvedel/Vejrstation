@@ -6,6 +6,7 @@ using Vejrstation.Interfaces;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Vejrstation.DTO;
 using Vejrstation.Entities;
@@ -26,7 +27,7 @@ namespace Vejrstation.Controllers
             this._repository = repository;
         }
 
-        [HttpPost("register")]
+        [HttpPost("register"),AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] AccountRequest request)
         {
             var user = await _repository.GetByUserName(request.UserName);
@@ -42,13 +43,12 @@ namespace Vejrstation.Controllers
             };
             
             var newAccount = await _repository.Create(account);
-            var newAccountId = newAccount.Id;
-            return Ok(new{success = true, id = newAccountId});
+            return Created(newAccount.Id.ToString(),newAccount.UserName);
         }
 
         
         
-        [HttpPost("Login")]
+        [HttpPost("Login"),AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] AccountRequest request)
         {
             var account = await _repository.GetByUserName(request.UserName);

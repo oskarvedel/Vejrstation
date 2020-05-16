@@ -10,8 +10,8 @@ using Vejrstation.Data;
 namespace Vejrstation.Migrations
 {
     [DbContext(typeof(WeatherServerDbContext))]
-    [Migration("20200515131055_accountseed")]
-    partial class accountseed
+    [Migration("20200516144923_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,32 +41,32 @@ namespace Vejrstation.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = 1001,
                             PasswordHash = "asdfasdf12341234",
                             UserName = "Flydende vejrstation 999"
                         },
                         new
                         {
-                            Id = 2,
-                            PasswordHash = "$2b$10$xeAXtAm.AhD5nKh4EVnTmuOTej01dSpqt58ELiYk5pphIBEvQve.u",
+                            Id = 1002,
+                            PasswordHash = "$2b$10$CVhr0CGf2jgOGzAGBW1QkuGoyD9zHEFfuMJ9PcgKVdfHmEozy.7g6",
                             UserName = "John_1954"
                         },
                         new
                         {
-                            Id = 3,
-                            PasswordHash = "$2b$10$rqFX4RElsidIPg3Ib0rr4ejKpmzni84yAW9PehXNZA4xPuUZxjqYe",
+                            Id = 1003,
+                            PasswordHash = "$2b$10$qlb0TxXk9jPbWwTMBS1lYOWdl34xwtxPEQ9NDYtyKjH0EqQzTJSB.",
                             UserName = "Jesper Theilgaard"
                         },
                         new
                         {
-                            Id = 4,
-                            PasswordHash = "$2b$10$Toun7XQsR.mdemKPuoME2u640UAaanuyxfaAFMrRWJT4M25C/JN6e",
+                            Id = 1004,
+                            PasswordHash = "$2b$10$CnmGJqhTvRb3plF.KemOPudF29hlXi2kwcnZ37Ao1nK0vChBM94CG",
                             UserName = "Peter Qvortrup Geisling"
                         },
                         new
                         {
-                            Id = 5,
-                            PasswordHash = "$2b$10$0nMAqaxLiuPrBkpZg0m/fuu/Wm7qLSklcmv08AfjVMWf2ihb0EGby",
+                            Id = 1005,
+                            PasswordHash = "$2b$10$hI.1VnFnpO.TMQwfjerBBeh3VER0QbphRGKVAGtU9Bril7PE5AYbm",
                             UserName = "Dr. Pjuskibusk"
                         });
                 });
@@ -117,7 +117,7 @@ namespace Vejrstation.Migrations
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 1002,
                             Date = new DateTime(2020, 5, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
                             Humidity_Percentage = 10,
                             Latitude = 23.45224,
@@ -128,7 +128,7 @@ namespace Vejrstation.Migrations
                         },
                         new
                         {
-                            Id = 3,
+                            Id = 1003,
                             Date = new DateTime(2020, 2, 3, 1, 50, 0, 0, DateTimeKind.Unspecified),
                             Humidity_Percentage = 10,
                             Latitude = 12.46733,
@@ -139,7 +139,7 @@ namespace Vejrstation.Migrations
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 1004,
                             Date = new DateTime(2020, 11, 15, 9, 0, 0, 0, DateTimeKind.Unspecified),
                             Humidity_Percentage = 10,
                             Latitude = 56.158149999999999,
@@ -147,6 +147,28 @@ namespace Vejrstation.Migrations
                             Name = "Hjemme paa gaarden",
                             Pressure_Millibar = 9.1999999999999993,
                             TemperatureCelsius = 33.100000000000001
+                        },
+                        new
+                        {
+                            Id = 1005,
+                            Date = new DateTime(2020, 11, 15, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            Humidity_Percentage = 100,
+                            Latitude = 69.420000000000002,
+                            Longitude = 69.420000000000002,
+                            Name = "Atlantis",
+                            Pressure_Millibar = 9000.2000000000007,
+                            TemperatureCelsius = 20.100000000000001
+                        },
+                        new
+                        {
+                            Id = 1006,
+                            Date = new DateTime(2020, 11, 15, 13, 0, 0, 0, DateTimeKind.Unspecified),
+                            Humidity_Percentage = 50,
+                            Latitude = 12.432399999999999,
+                            Longitude = 54.123399999999997,
+                            Name = "Anna Lises Bar",
+                            Pressure_Millibar = 900.0,
+                            TemperatureCelsius = 25.100000000000001
                         });
                 });
 #pragma warning restore 612, 618

@@ -8,7 +8,7 @@ namespace Vejrstation.Interfaces
 {
     public interface IWeatherObservationRepository: IRepository<WeatherObservation>
     {
-        Task<IEnumerable<WeatherObservation>> GetThreeLast();
+        Task<IEnumerable<WeatherObservation>> GetLastThree();
 
         Task<IEnumerable<WeatherObservation>> GetOnDate(DateTime date);
         Task<IEnumerable<WeatherObservation>> GetBetween(DateTime startDate, DateTime enDateTime);
