@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Vejrstation.Data;
 using Vejrstation.Entities;
 using Vejrstation.Interfaces;
@@ -14,26 +15,26 @@ namespace Vejrstation.Repository
         {
         }
 
-        public IEnumerable<WeatherObservation> GetThreeLast()
+        public async Task<IEnumerable<WeatherObservation>> GetThreeLast()
         {
-            return context.WeatherObservations
+            return await context.WeatherObservations
                 .OrderByDescending(x => x.Date)
                 .Take(3)
-                .ToList();
+                .ToListAsync();
         }
 
-        public IEnumerable<WeatherObservation> GetOnDate(DateTime date)
+        public async Task<IEnumerable<WeatherObservation>> GetOnDate(DateTime date)
         {
-            return context.WeatherObservations
+            return await context.WeatherObservations
                 .Where(x => x.Date == date)
-                .ToList();
+                .ToListAsync();
         }
 
-        public IEnumerable<WeatherObservation> GetBetween(DateTime startDateTime, DateTime enDateTime)
+        public async Task<IEnumerable<WeatherObservation>> GetBetween(DateTime startDateTime, DateTime enDateTime)
         {
-            return context.WeatherObservations
+            return await context.WeatherObservations
                 .Where(x => startDateTime <= x.Date && x.Date >= enDateTime)
-                .ToList();
+                .ToListAsync();
         }
     }
 }
