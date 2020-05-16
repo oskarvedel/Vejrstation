@@ -1,12 +1,16 @@
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Vejrstation.Interfaces;
 using System.Net.Http;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 using Vejrstation.DTO;
 using Vejrstation.Entities;
 using static BCrypt.Net.BCrypt;
-
+using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 
 namespace Vejrstation.Controllers
@@ -22,12 +26,13 @@ namespace Vejrstation.Controllers
             this._repository = repository;
         }
 
-        [HttpPost("/register")]
-        public IActionResult Post([FromBody] AccountRequest request)
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] AccountRequest request)
         {
-            if (_repository.GetByUserName(request.UserName) != null)
+            var user = await _repository.GetByUserName(request.UserName);
+            if (user != null)
             {
-                return Ok(new {success = false, message="UserName already exists, try logging in."});
+                return BadRequest(new {success = false, message="UserName already exists, try logging in."});
             }
 
             var account = new Account()
@@ -36,10 +41,49 @@ namespace Vejrstation.Controllers
                 PasswordHash = HashPassword(request.Password, Settings.BCryptWorkFactor)
             };
             
-            _repository.Create(account);
+            var accountCreated = await _repository.Create(account);
             
-            return Ok();
+            return Ok(accountCreated);
         }
+
         
+        
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] AccountRequest request)
+        {
+            var account = await _repository.GetByUserName(request.UserName);
+            if (account == null)
+            {
+                return BadRequest(new {success = false, message="Username doesn't exits. Please register an account."});
+            }
+            
+            
+            var passWordCompare  = Verify(request.Password, account.PasswordHash);
+
+
+            switch (passWordCompare)
+            {
+                case false:
+                    return BadRequest(new {success = false, message = "Wrong password"});
+                case true:
+                {
+                    var claims = new Claim[]
+                    {
+                        new Claim("UserName", account.UserName),
+                        new Claim("UserId",account.Id.ToString()), 
+                        new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
+                        new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString())
+                    };
+                    var token = new JwtSecurityToken(
+                        new JwtHeader(new SigningCredentials(
+                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Settings.JwtSecret)),
+                            SecurityAlgorithms.HmacSha256)),
+                        new JwtPayload(claims));
+
+                    var tokenResult =  new JwtSecurityTokenHandler().WriteToken(token);
+                    return Ok(new {JWT = tokenResult});
+                }
+            }
+        }
     }
 }

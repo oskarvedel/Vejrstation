@@ -8,7 +8,7 @@ using Vejrstation.Entities;
 namespace Vejrstation.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class WeatherObservationController: ControllerBase
     {
         private readonly IWeatherObservationRepository _repository;
