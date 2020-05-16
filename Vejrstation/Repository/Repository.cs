@@ -16,15 +16,38 @@ namespace Vejrstation.Repository
         {
             this.context = context;
         }
-        public  TEntity Read(int id)
-        {
-            return context.Set<TEntity>().Find(id);
-        }
-
-        public void Create(TEntity entity)
+        public async Task<TEntity> Create(TEntity entity)
         {
             context.Set<TEntity>().Add(entity);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
+            return entity;
         }
+        
+        public async Task<TEntity> Read(int id)
+        {
+            return await context.Set<TEntity>().FindAsync(id);
+        }
+
+        public async Task<TEntity> Update(TEntity entity)
+        {
+            context.Entry(entity).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return entity;
+        }
+        
+        public async Task<TEntity> Delete(int id)
+        {
+            var entity = await context.Set<TEntity>().FindAsync(id);
+            if (entity == null)
+            {
+                return entity;
+            }
+
+            context.Set<TEntity>().Remove(entity);
+            await context.SaveChangesAsync();
+
+            return entity;
+        }
+        
     }
 }

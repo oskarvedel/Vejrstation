@@ -30,13 +30,14 @@ namespace Vejrstation.Controllers
                 return Ok(new {success = false, message="UserName already exists, try logging in."});
             }
 
-            new Account()
+            var account = new Account()
             {
                 UserName = request.UserName,
                 PasswordHash = HashPassword(request.Password, Settings.BCryptWorkFactor)
             };
             
-
+            _repository.Create(account);
+            
             return Ok();
         }
         

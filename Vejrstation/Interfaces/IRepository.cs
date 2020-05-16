@@ -8,7 +8,9 @@ namespace Vejrstation.Interfaces
 {
     public interface IRepository<TEntity> where TEntity: class
     {
-        void Create(TEntity entity);
-        TEntity Read(int id);
+        Task<TEntity> Create(TEntity entity);
+        Task<TEntity> Read(int id);
+        Task<TEntity> Update(TEntity entity);
+        Task<TEntity> Delete(int id);
     }
 }
