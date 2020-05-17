@@ -47,7 +47,7 @@
 							"",
 							"",
 							"    var jsonData = pm.response.json();",
-							"    pm.environment.set(\"jwt_token\", jsonData.jwt);",
+							"    pm.globals.set(\"jwt_token\", jsonData.jwt);",
 							"    console.log(pm.globals.get(\"jwt_token\"));",
 							""
 						],
@@ -91,7 +91,7 @@
 					"script": {
 						"id": "d82ab71e-9543-4c37-92fd-532b16e1bfb6",
 						"exec": [
-							"    console.log(pm.globals.get(\"jwt_token\"));",
+							"console.log(pm.globals.get(\"jwt_token\"));",
 							""
 						],
 						"type": "text/javascript"
@@ -268,7 +268,14 @@
 		}
 	],
 	"auth": {
-		"type": "bearer"
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "",
+				"type": "string"
+			}
+		]
 	},
 	"event": [
 		{
@@ -290,6 +297,15 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"id": "dd1e44cc-22f8-4217-a3d3-366bd1029535",
+			"key": "jwt_token",
+			"value": null,
+			"type": "any",
+			"disabled": true
 		}
 	],
 	"protocolProfileBehavior": {}

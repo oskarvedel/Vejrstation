@@ -6,16 +6,18 @@
 </head>
 <body>
 
-<div>
-    <h5>Latest Weather Observation:</h5>
 
-    <label>Date and Time: </label><input type="text" id="dateTime" readonly />
-    <label>Location Name: </label><input type="text" id="location" readonly />
-    <label>latitude: </label><input type="text" id="latitude" readonly />
-    <label>Longitude: </label><input type="text" id="longitude" readonly />
-    <label>Temperature (Celsius): </label><input type="text" id="temperature" readonly />
-    <label>Humidity (Percentage): </label><input type="text" id="humidity" readonly />
-    <label>Pressure (Millibar): </label><input type="text" id="pressure" readonly />
+
+    <h5>Latest Weather Observation:</h5>
+    <div class="frame">
+
+    <label>Date and Time: </label><input class="displayField" type="text" id="dateTime" readonly /><br>
+    <label>Location Name: </label><input class="displayField" type="text" id="location" readonly /><br>
+    <label>latitude: </label><input class="displayField" type="text" id="latitude" readonly /><br>
+    <label>Longitude: </label><input class="displayField" type="text" id="longitude" readonly /><br>
+    <label>Temperature (Celsius): </label><input class="displayField" type="text" id="temperature" readonly /><br>
+    <label>Humidity (Percentage): </label><input class="displayField" type="text" id="humidity" readonly /><br>
+    <label>Pressure (Millibar): </label><input class="displayField" type="text" id="pressure" readonly /><br>
 
 </div>
 
@@ -44,6 +46,17 @@
     });
     
 </script>
+
+
+
 </body>
 </html>
 
+<style>
+
+    
+    .displayField{
+        border: none;
+        outline: none;
+    }
+</style>
