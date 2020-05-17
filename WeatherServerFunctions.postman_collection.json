@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "2f70cd2d-177a-4b49-84ed-b8f45d8b92f5",
+		"name": "WeatherServerFunctions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userName\" : \"Allan_Bobby_Helvetica_Von_Gungadin_Junior\",\n\t\"password\" : \"securityIsPassion==true\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/account/register",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"account",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "188160df-9161-4293-80ad-618113ff447a",
+						"exec": [
+							"",
+							"",
+							"",
+							"    var jsonData = pm.response.json();",
+							"    pm.environment.set(\"jwt_token\", jsonData.jwt);",
+							"    console.log(pm.globals.get(\"jwt_token\"));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userName\" : \"Jesper Theilgaard\",\n\t\"password\" : \"mitPassword2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/account/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"account",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateWeatherObservation",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d82ab71e-9543-4c37-92fd-532b16e1bfb6",
+						"exec": [
+							"    console.log(pm.globals.get(\"jwt_token\"));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n        {\n        \t\"Date\" : \"2020-03-20T12:40:00\",\n        \t\"Name\" : \"Lalandia\",\n        \t\"Latitude\" : 12.0234,\n        \t\"Longitude\" : 22.4343,\n        \t\"TemperatureCelsius\" : 40,\n        \t\"Humidity_Percentage\" : 70,\n        \t\"Pressure_Millibar\" : 1050\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/weatherobservation",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"weatherobservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UnsuccessfulCreateWeatherObserVation_NoAuth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n        {\n        \t\"Date\" : \"2020-03-20T12:40:00\",\n        \t\"Name\" : \"Lalandia\",\n        \t\"Latitude\" : 12.0234,\n        \t\"Longitude\" : 22.4343,\n        \t\"TemperatureCelsius\" : 40,\n        \t\"Humidity_Percentage\" : 70,\n        \t\"Pressure_Millibar\" : 1050\n        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/weatherobservation",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"weatherobservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetLastThreeWeatherObservations",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/weatherobservation",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"weatherobservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetWeatherObservationsOfSpecifiedDay",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/weatherobservation/2020-11-15",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"weatherobservation",
+						"2020-11-15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetWeatherObservationsOfInterval_ReturnsAllSeedData",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/weatherobservation/2020-01-02/2020-11-20",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"weatherobservation",
+						"2020-01-02",
+						"2020-11-20"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetWeatherObservationsOfInterval_ReturnsFourSeededObservations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/weatherobservation/2020-05-20/2020-11-16",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"weatherobservation",
+						"2020-05-20",
+						"2020-11-16"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "7d6f4b75-7ab1-44fb-b6d6-9991a812dedf",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "fda42d29-41f6-4db0-822a-f6305e66156c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

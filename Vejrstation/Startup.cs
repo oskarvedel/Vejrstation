@@ -92,11 +92,13 @@ namespace Vejrstation
 
             app.UseAuthentication();
             app.UseAuthorization();
+            
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<LiveUpdateHub>("/LiveUpdateHub");
+                endpoints.MapHub<LiveUpdateHub>("/liveUpdateHub");
             });
         }
         

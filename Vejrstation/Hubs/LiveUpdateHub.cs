@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Vejrstation.Entities;
 
+
 namespace Vejrstation.Hubs
 {
     public class LiveUpdateHub : Hub

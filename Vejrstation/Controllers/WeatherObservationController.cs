@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Vejrstation.Interfaces;
 using System.Net.Http;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using Vejrstation.DTO;
 using Vejrstation.Entities;
+using Vejrstation.Hubs;
 
 namespace Vejrstation.Controllers
 {
@@ -14,11 +16,13 @@ namespace Vejrstation.Controllers
     [Authorize]
     public class WeatherObservationController: ControllerBase
     {
+        private IHubContext<LiveUpdateHub> _liveUpdateHub;
         private readonly IWeatherObservationRepository _repository;
         
-        public WeatherObservationController(IWeatherObservationRepository repository)
+        public WeatherObservationController(IWeatherObservationRepository repository, IHubContext<LiveUpdateHub> liveUpdateHub)
         {
             this._repository = repository;
+            this._liveUpdateHub = liveUpdateHub;
         }
 
         [HttpGet, AllowAnonymous]
@@ -56,6 +60,9 @@ namespace Vejrstation.Controllers
                 Pressure_Millibar = request.Pressure_Millibar
             };
             var createdObservation = await _repository.Create(observation);
+
+            await _liveUpdateHub.Clients.All.SendAsync("newObservation", createdObservation);
+            
             return Created(createdObservation.Id.ToString(),createdObservation);
         }
     }
