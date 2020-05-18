@@ -29,8 +29,7 @@
     let connection = new signalR.HubConnectionBuilder().withUrl("/liveUpdateHub").build();
 
     connection.on("newObservation", (observation)=> {
-        //let observation = result.arguments[0];
-        document.getElementById("dateTime").value = observation.id;
+        document.getElementById("dateTime").value = new Date(observation.date).toLocaleString();
         document.getElementById("location").value = observation.name;
         document.getElementById("latitude").value = observation.latitude;
         document.getElementById("longitude").value = observation.longitude;

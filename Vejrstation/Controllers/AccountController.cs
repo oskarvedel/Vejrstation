@@ -57,9 +57,7 @@ namespace Vejrstation.Controllers
                 return BadRequest(new {success = false, message="Username doesn't exits. Please register an account."});
             }
             
-            
             var passWordCompare  = Verify(request.Password, account.PasswordHash);
-
 
             switch (passWordCompare)
             {
