@@ -7,12 +7,24 @@
 	"item": [
 		{
 			"name": "Register_fails_userAlreadyExists",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3c02a464-58a7-44b4-813d-61a8be90aed1",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"userName\" : \"Allan_Bobby_Helvetica_Von_Gungadin_Junior\",\n\t\"password\" : \"securityIsPassion==true\"\n}",
+					"raw": "{\n\t\"userName\" : \"Jesper Theilgaard\",\n\t\"password\" : \"haderRegn999\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -186,7 +198,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"userName\" : \"Jesper Theilgaard\",\n\t\"password\" : \"mitPassword2\"\n}",
+					"raw": "{\n\t\"userName\" : \"Jesper Theilgaard\",\n\t\"password\" : \"elskerHeste123\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -427,7 +439,7 @@
 	],
 	"variable": [
 		{
-			"id": "fd7a2780-c841-4ae9-8ad6-76cf6fbe46c3",
+			"id": "9193cc77-0c40-4cbd-b623-b63053ac10bf",
 			"key": "jwt_token",
 			"value": null,
 			"type": "any",
