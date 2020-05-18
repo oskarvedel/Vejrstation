@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace Vejrstation.Test.Unit
 {
-    public class Tests
+    public class AccountUnitTest
     {
         [SetUp]
         public void Setup()
