@@ -10,6 +10,7 @@ using NUnit.Framework;
 using NSubstitute;
 using Vejrstation.Controllers;
 using Vejrstation.DTO;
+using Vejrstation.Entities;
 using Vejrstation.Hubs;
 using Vejrstation.Interfaces;
 
@@ -47,19 +48,16 @@ namespace Vejrstation.Test.Unit
         public async Task GetWeatherObservationByDate()
         {
             //Arrange
-            List<WeatherObservationRequest> weatherObservations = new List<WeatherObservationRequest>()
+            WeatherObservation weatherObservations = new WeatherObservation()
             {
-                new WeatherObservationRequest()
-                {
-                    
-                    Date = new DateTime(2020, 6, 20),
+
+                Date = new DateTime(2020, 6, 20),
                     Name = "Vejle",
                     Latitude = 1013031,
                     Longitude = 2554322,
                     TemperatureCelsius = 11,
                     Humidity_Percentage = 14,
                     Pressure_Millibar = 5
-                }
             };
             //Act
             var result = (await _uut.GetOnDate(new DateTime(2020, 6, 20))) as ObjectResult;
@@ -74,19 +72,16 @@ namespace Vejrstation.Test.Unit
         public async Task GetWeatherObservationsBetweenDates()
         {
             //Arrange
-            List<WeatherObservationRequest> weatherObservations = new List<WeatherObservationRequest>()
+            WeatherObservation weatherObservations = new WeatherObservation()
             {
-                new WeatherObservationRequest()
-                {
 
                     Date = new DateTime(2020, 6, 20),
-                    Name = "Vejle",
-                    Latitude = 1013031,
-                    Longitude = 2554322,
-                    TemperatureCelsius = 11,
-                    Humidity_Percentage = 14,
-                    Pressure_Millibar = 5
-                }
+                    Name = "Vordingborg",
+                    Latitude = 10130343,
+                    Longitude = 255522,
+                    TemperatureCelsius = 1,
+                    Humidity_Percentage = 4,
+                    Pressure_Millibar = 1
             };
 
             //Act
@@ -100,7 +95,34 @@ namespace Vejrstation.Test.Unit
         [Test]
         public async Task CreateWeatherObservation()
         {
+            
+            WeatherObservationRequest weatherObservations = new WeatherObservationRequest()
+            {
 
+                    Date = new DateTime(2020, 2, 8),
+                    Name = "Ikast",
+                    Latitude = 10120343,
+                    Longitude = 2667522,
+                    TemperatureCelsius = 40,
+                    Humidity_Percentage = 700,
+                    Pressure_Millibar = 0
+            };
+
+            WeatherObservation observation = new WeatherObservation
+            {
+                Date = weatherObservations.Date,
+                Name = weatherObservations.Name,
+                Latitude = weatherObservations.Latitude,
+                Longitude = weatherObservations.Longitude,
+                TemperatureCelsius = weatherObservations.TemperatureCelsius,
+                Humidity_Percentage = weatherObservations.Humidity_Percentage,
+                Pressure_Millibar = weatherObservations.Pressure_Millibar
+            };
+
+            var result = (await _uut.CreateEntity(weatherObservations));
+
+            Assert.NotNull(result);
+            await _weatherObservationRepository.Received().Create(observation);
         }
     }
 }
