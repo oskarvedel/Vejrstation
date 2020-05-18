@@ -18,7 +18,7 @@ namespace Vejrstation.Repository
         public async Task<IEnumerable<WeatherObservation>> GetLastThree()
         {
             return await context.WeatherObservations
-                .OrderByDescending(x => x.Date)
+                .OrderByDescending(x => x.Id)
                 .Take(3)
                 .ToListAsync();
         }
