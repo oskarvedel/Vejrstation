@@ -119,10 +119,11 @@ namespace Vejrstation.Test.Unit
                 Pressure_Millibar = weatherObservations.Pressure_Millibar
             };
 
-            var result = (await _uut.CreateEntity(weatherObservations));
-
+            var result = (await _uut.CreateEntity(weatherObservations)) as ObjectResult;
+            
             Assert.NotNull(result);
             await _weatherObservationRepository.Received().Create(observation);
+
         }
     }
 }
