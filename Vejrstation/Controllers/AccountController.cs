@@ -54,7 +54,7 @@ namespace Vejrstation.Controllers
             var account = await _repository.GetByUserName(request.UserName);
             if (account == null)
             {
-                return BadRequest(new {success = false, message="Username doesn't exits. Please register an account."});
+                return BadRequest(new {success = false, message="Username doesn't exist. Please register an account."});
             }
             
             var passWordCompare  = Verify(request.Password, account.PasswordHash);
