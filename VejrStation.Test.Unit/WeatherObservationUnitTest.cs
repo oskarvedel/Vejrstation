@@ -35,28 +35,11 @@ namespace Vejrstation.Test.Unit
             //Arrange
 
             //Act
+            var result = (await _uut.GetLastThree()) as ObjectResult;   
 
             //Assert
-        }
-
-        [Test]
-        public async Task GetLastThreeWeatherObservations()
-        {
-            //Arrange
-            WeatherObservationRequest weatherObservationRequest = new WeatherObservationRequest()
-            {
-                Date = DateTime.Now,
-                Name = "Baggården",
-                Latitude = 1000023,
-                Longitude = 320003,
-                TemperatureCelsius = 67,
-                Humidity_Percentage = 70,
-                Pressure_Millibar = 0.001
-            };
-            //Act
-    //        var result = (await _uut.GetLastThree()).Result as ObjectResult;
-
-            //Assert
+            Assert.NotNull(result);
+            await _weatherObservationRepository.Received().GetLastThree();
         }
     }
 }
