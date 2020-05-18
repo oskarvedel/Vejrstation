@@ -47,7 +47,7 @@ namespace Vejrstation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateEntity([FromBody] WeatherObservationRequest request)
+        public async Task<ActionResult> CreateEntity([FromBody] WeatherObservationRequest request)
         {
             var observation = new WeatherObservation
             {
