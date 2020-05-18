@@ -91,7 +91,7 @@ namespace Vejrstation.Test.Unit
 
             //Assert
             Assert.NotNull(result);
-            await _weatherObservationRepository.Received().GetBetween(new DateTime(2020, 6, 20), new DateTime(2020, 6, 10));
+            await _weatherObservationRepository.Received().GetBetween(new DateTime(2020, 6, 28), new DateTime(2020, 6, 10));
         }
 
         /* Following test is not working due to some mocking error on the Returns() call.

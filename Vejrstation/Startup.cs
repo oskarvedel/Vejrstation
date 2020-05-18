@@ -39,7 +39,7 @@ namespace Vejrstation
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connString = System.Environment.GetEnvironmentVariable("WsDb");
+            var connString = System.Environment.GetEnvironmentVariable("WeatherServerDb");
             services.AddControllers().AddControllersAsServices();
             
             services.AddDbContext<WeatherServerDbContext>(options =>
