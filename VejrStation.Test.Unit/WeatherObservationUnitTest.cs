@@ -13,6 +13,8 @@ using Vejrstation.DTO;
 using Vejrstation.Entities;
 using Vejrstation.Hubs;
 using Vejrstation.Interfaces;
+using System.Text.Json;
+
 
 namespace Vejrstation.Test.Unit
 {
@@ -93,10 +95,10 @@ namespace Vejrstation.Test.Unit
         }
 
         [Test]
-        public async Task CreateWeatherObservation()
+        public void CreateWeatherObservation()
         {
-            
-            WeatherObservationRequest weatherObservations = new WeatherObservationRequest()
+            //Arrange
+            WeatherObservationRequest weatherObservation = new WeatherObservationRequest()
             {
 
                     Date = new DateTime(2020, 2, 8),
@@ -108,21 +110,36 @@ namespace Vejrstation.Test.Unit
                     Pressure_Millibar = 0
             };
 
-            WeatherObservation observation = new WeatherObservation
+            WeatherObservation observationCreated = new WeatherObservation
             {
-                Date = weatherObservations.Date,
-                Name = weatherObservations.Name,
-                Latitude = weatherObservations.Latitude,
-                Longitude = weatherObservations.Longitude,
-                TemperatureCelsius = weatherObservations.TemperatureCelsius,
-                Humidity_Percentage = weatherObservations.Humidity_Percentage,
-                Pressure_Millibar = weatherObservations.Pressure_Millibar
+                Date = weatherObservation.Date,
+                Name = weatherObservation.Name,
+                Latitude = weatherObservation.Latitude,
+                Longitude = weatherObservation.Longitude,
+                TemperatureCelsius = weatherObservation.TemperatureCelsius,
+                Humidity_Percentage = weatherObservation.Humidity_Percentage,
+                Pressure_Millibar = weatherObservation.Pressure_Millibar
+            };
+            
+            WeatherObservation observationReturned = new WeatherObservation
+            {
+                Id = 3,
+                Date = weatherObservation.Date,
+                Name = weatherObservation.Name,
+                Latitude = weatherObservation.Latitude,
+                Longitude = weatherObservation.Longitude,
+                TemperatureCelsius = weatherObservation.TemperatureCelsius,
+                Humidity_Percentage = weatherObservation.Humidity_Percentage,
+                Pressure_Millibar = weatherObservation.Pressure_Millibar
             };
 
-            var result = (await _uut.CreateEntity(weatherObservations));
-
-            Assert.NotNull(result);
-            await _weatherObservationRepository.Received().Create(observation);
+            _weatherObservationRepository.Create(observationCreated).Returns(observationReturned);
+                
+            //Act
+            var result =  _uut.CreateEntity(weatherObservation).Result as CreatedResult;
+            var jsonActual = JsonSerializer.Serialize(result.Value);
+            //Assert.NotNull(jsonActual);
+            _weatherObservationRepository.Received(1).Create(observationCreated);
         }
     }
 }
