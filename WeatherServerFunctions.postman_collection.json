@@ -6,6 +6,36 @@
 	},
 	"item": [
 		{
+			"name": "Register_fails_userAlreadyExists",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userName\" : \"Allan_Bobby_Helvetica_Von_Gungadin_Junior\",\n\t\"password\" : \"securityIsPassion==true\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/account/register",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"account",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Register",
 			"request": {
 				"method": "POST",
@@ -42,6 +72,102 @@
 					"listen": "test",
 					"script": {
 						"id": "188160df-9161-4293-80ad-618113ff447a",
+						"exec": [
+							"",
+							"",
+							"",
+							"    var jsonData = pm.response.json();",
+							"    pm.globals.set(\"jwt_token\", jsonData.jwt);",
+							"    console.log(pm.globals.get(\"jwt_token\"));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userName\" : \"Jesper Theilgaard\",\n\t\"password\" : \"mitPassword2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/account/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"account",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login_fails_WrongUserName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c58336f9-f65b-4ed7-94c5-395b5f869b3e",
+						"exec": [
+							"",
+							"",
+							"",
+							"    var jsonData = pm.response.json();",
+							"    pm.globals.set(\"jwt_token\", jsonData.jwt);",
+							"    console.log(pm.globals.get(\"jwt_token\"));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userName\" : \"Remee\",\n\t\"password\" : \"mitPassword2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/account/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"account",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login_fails_wrongPassword",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "834ca309-5b9e-49cb-a045-81554085f8d4",
 						"exec": [
 							"",
 							"",
@@ -301,7 +427,7 @@
 	],
 	"variable": [
 		{
-			"id": "dd1e44cc-22f8-4217-a3d3-366bd1029535",
+			"id": "fd7a2780-c841-4ae9-8ad6-76cf6fbe46c3",
 			"key": "jwt_token",
 			"value": null,
 			"type": "any",
